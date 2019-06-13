@@ -1,8 +1,6 @@
 def consolidate_cart(cart)
 	i = 0
 	s = {}
-	  require 'pry'
-	binding.pry
 	cart.each do |item|
 	  item.map do |name, info|
 		  s[name] = info
@@ -50,27 +48,15 @@ def apply_clearance(cart)
 end
 
 def checkout(cart, coupons)
-  require 'pry'
-  consolidated = consolidate_cart(cart)
-  
-  apply_coupons(cart, coupons)
-  def apply_clearance(cart)
-	cart.each do |items|
-		items.each do |item, details|
-		if  details[:clearance] == true
-			details[:price] = (details[:price]*0.80).round(2)
-		end
-	end
-end
-end
-  
-  
-  
-  apply_clearance(cart)
-  
-  binding.pry
-  cart
-  
+  consolidated_cart = consolidate_cart(cart)
+  couponed_cart = apply_coupons(consolidated_cart, coupons)
+  final_cart = apply_clearance(couponed_cart)
+  total = 0
+  final_cart.each do |name, properties|
+    total += properties[:price] * properties[:count]
+  end
+  total = total * 0.9 if total > 100
+  total
   
 end
 
