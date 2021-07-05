@@ -1,6 +1,9 @@
 require_relative 'grocer'
+require 'pry'
+
 
 def items
+	binding.pry
 	[
 		{"AVOCADO" => {:price => 3.00, :clearance => true}},
 		{"KALE" => {:price => 3.00, :clearance => false}},
@@ -12,6 +15,26 @@ def items
 		{"PEANUTBUTTER" => {:price => 3.00, :clearance => true}},
 		{"BEETS" => {:price => 2.50, :clearance => false}}
 	]
+end
+
+def consolidate_cart(items)
+	organized_cart = {}
+	binding.pry
+	items.each do |item_hash|
+		
+		item_hash.each do |item, info_hash|
+			organized_cart[item] = info_hash
+		end
+		end
+		count = 0
+		items.each do |item_hash|
+			item_hash.each do |item, info_hash|
+				if organized_cart.keys.include?(item)
+					count += 1
+				end
+				organized_cart[:count] = count
+	end
+	return organized_cart
 end
 
 def coupons
